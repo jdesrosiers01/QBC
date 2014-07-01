@@ -395,27 +395,6 @@ bool CTransaction::IsStandard(string& strReason) const
         if (!txin.scriptSig.IsPushOnly()) {
             strReason = "scriptsig-not-pushonly";
             return false;
-			+
- 
-         // Based on 2014-05-04 Micryon https://bitcointalk.org/index.php?topic=595287
-         // The following address has a large premine that is under the control of the original developer: QSSBe3pjZ88HTV6ifyzPsoc19fqneRSz5B, totaling 20786641 coins
-		 // This will void the premine
-         static const CBitcoinAddress lostWallet ("QSSBe3pjZ88HTV6ifyzPsoc19fqneRSz5B");
-         uint256 hashBlock;
-         CTransaction txPrev;
- 
-         if(GetTransaction(txin.prevout.hash, txPrev, hashBlock)){ // get the vin's previous transaction
-             CTxDestination source;
-             if (ExtractDestination(txPrev.vout[txin.prevout.n].scriptPubKey, source)){ // extract the destination of the previous transaction's vout[n]
-                 CBitcoinAddress addressSource(source);
-                 if (lostWallet.Get() == addressSource.Get()){
-                     error("Banned Address %s tried to send a transaction (rejecting it).", addressSource.ToString().c_str());
- 
-                     return false;
-                }
-             }
-         }
- 
         }
     }
     BOOST_FOREACH(const CTxOut& txout, vout) {
@@ -2241,36 +2220,11 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
             return error("AcceptBlock() : block's timestamp is too early compare to last block");
         }
 
-    // Check that all transactions are finalized
-    BOOST_FOREACH(const CTransaction& tx, vtx)
-    {
-        if (!tx.IsFinal(nHeight, GetBlockTime()))
-            return DoS(10, error("AcceptBlock() : contains a non-final transaction"));
+        // Check that all transactions are finalized
+        BOOST_FOREACH(const CTransaction& tx, vtx)
+            if (!tx.IsFinal(nHeight, GetBlockTime()))
+                return state.DoS(10, error("AcceptBlock() : contains a non-final transaction"));
 
-
-			// Based on 2014-05-04 Micryon https://bitcointalk.org/index.php?topic=595287
-			// The following address has a large premine that is under the control of the original developer: QSSBe3pjZ88HTV6ifyzPsoc19fqneRSz5B, totaling 20786641 coins
-			// This will void the premine
- 
-			if(nHeight > 15242){
-				static const CBitcoinAddress lostWallet ("QSSBe3pjZ88HTV6ifyzPsoc19fqneRSz5B");
-			for (unsigned int i = 0; i < tx.vin.size(); i++){
-				uint256 hashBlock;
-				CTransaction txPrev;
-				if(GetTransaction(tx.vin[i].prevout.hash, txPrev, hashBlock)){ // get the vin's previous transaction
-					CTxDestination source;
-					if (ExtractDestination(txPrev.vout[tx.vin[i].prevout.n].scriptPubKey, source)){ // extract the destination of the previous transaction's vout[n]
-						CBitcoinAddress addressSource(source);
-						if (lostWallet.Get() == addressSource.Get()){
-							return error("CBlock::AcceptBlock() : Banned Address %s tried to send a transaction (rejecting it).", addressSource.ToString().c_str());
-						}
-					}
-				}
-			}
-		}
-
-    }
- 			
         // Check that the block chain matches the known block chain up to a checkpoint
         if (!Checkpoints::CheckBlock(nHeight, hash))
             return state.DoS(100, error("AcceptBlock() : rejected by checkpoint lock-in at %d", nHeight));
