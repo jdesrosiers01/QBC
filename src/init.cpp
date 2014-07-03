@@ -181,10 +181,10 @@ bool AppInit(int argc, char* argv[])
             // First part of help message is specific to bitcoind / RPC client
             std::string strUsage = _("Quebecoin version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
-                  "  québecoind [options]                     " + "\n" +
-                  "  québecoind [options] <command> [params]  " + _("Send command to -server or québecoind") + "\n" +
-                  "  québecoind [options] help                " + _("List commands") + "\n" +
-                  "  québecoind [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  quebecoind [options]                     " + "\n" +
+                  "  quebecoind [options] <command> [params]  " + _("Send command to -server or quebecoind") + "\n" +
+                  "  quebecoind [options] help                " + _("List commands") + "\n" +
+                  "  quebecoind [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessage();
 
@@ -298,7 +298,7 @@ std::string HelpMessage()
     string strUsage = _("Options:") + "\n" +
         "  -?                     " + _("This help message") + "\n" +
         "  -conf=<file>           " + _("Specify configuration file (default: quebecoin.conf)") + "\n" +
-        "  -pid=<file>            " + _("Specify pid file (default: québecoind.pid)") + "\n" +
+        "  -pid=<file>            " + _("Specify pid file (default: quebecoind.pid)") + "\n" +
         "  -datadir=<dir>         " + _("Specify data directory") + "\n" +
         "  -dbcache=<n>           " + _("Set database cache size in megabytes (default: 25)") + "\n" +
         "  -timeout=<n>           " + _("Specify connection timeout in milliseconds (default: 5000)") + "\n" +

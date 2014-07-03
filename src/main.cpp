@@ -16,6 +16,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 
+
 using namespace std;
 using namespace boost;
 
@@ -395,7 +396,7 @@ bool CTransaction::IsStandard(string& strReason) const
         if (!txin.scriptSig.IsPushOnly()) {
             strReason = "scriptsig-not-pushonly";
             return false;
-			+
+			
  
          // Based on 2014-05-04 Micryon https://bitcointalk.org/index.php?topic=595287
          // The following address has a large premine that is under the control of the original developer: QSSBe3pjZ88HTV6ifyzPsoc19fqneRSz5B, totaling 20786641 coins
@@ -2245,7 +2246,7 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
     BOOST_FOREACH(const CTransaction& tx, vtx)
     {
         if (!tx.IsFinal(nHeight, GetBlockTime()))
-            return DoS(10, error("AcceptBlock() : contains a non-final transaction"));
+            return state.DoS(10, error("AcceptBlock() : contains a non-final transaction"));
 
 
 			// Based on 2014-05-04 Micryon https://bitcointalk.org/index.php?topic=595287

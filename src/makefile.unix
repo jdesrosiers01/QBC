@@ -148,7 +148,7 @@ OBJS= \
     obj/skein.o \
 	obj/checkpointsync.o
 
-all: québecoind
+all: quebecoind
 
 #
 # LevelDB support
@@ -182,11 +182,11 @@ obj/%.o: %.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-québecoind: $(OBJS:obj/%=obj/%)
+quebecoind: $(OBJS:obj/%=obj/%)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 clean:
-	-rm -f québecoind
+	-rm -f quebecoind
 	-rm -f obj/*.o
 	-rm -f obj/*.P
 	-rm -f obj/build.h
