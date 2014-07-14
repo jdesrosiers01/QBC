@@ -19,7 +19,7 @@ CONFIG += static
 # Dependency library locations can be customized with:
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
-
+win32 {
 BOOST_LIB_SUFFIX=-mgw49-mt-s-1_55
 BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0
 BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
@@ -31,6 +31,21 @@ MINIUPNPC_INCLUDE_PATH=C:/deps/
 MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
 QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.3
 QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.3/.libs
+}
+
+macx {
+BOOST_INCLUDE_PATH=/usr/local/Cellar/boost/1.55.0_2/include
+BOOST_LIB_PATH=/usr/local/Cellar/boost/1.55.0_2/lib
+BDB_INCLUDE_PATH=/usr/local/Cellar/berkeley-db4/4.8.30/include
+BDB_LIB_PATH=/usr/local/Cellar/berkeley-db4/4.8.30/lib
+OPENSSL_INCLUDE_PATH=/usr/local/Cellar/openssl/1.0.1h/include
+OPENSSL_LIB_PATH=/usr/local/Cellar/openssl/1.0.1h/lib
+MINIUPNPC_INCLUDE_PATH= /usr/local/Cellar/miniupnpc/1.8.20131007/include
+MINIUPNPC_LIB_PATH= /usr/local/Cellar/miniupnpc/1.8.20131007/lib
+QRENCODE_INCLUDE_PATH=/usr/local/Cellar/qrencode/3.4.3_1/include
+QRENCODE_LIB_PATH=/usr/local/Cellar/qrencode/3.4.3_1/lib
+}
+
 
 OBJECTS_DIR = build
 MOC_DIR = build
