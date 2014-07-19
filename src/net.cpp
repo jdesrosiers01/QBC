@@ -1192,7 +1192,7 @@ void MapPort(bool)
 // The first name is used as information source for addrman.
 // The second name should resolve to a list of seed addresses.
 static const char *strMainNetDNSSeed[][2] = {
-    {"qbc.io", "dnsseed.qbc.io"},
+    {"service-crypto.com", "dnsseed.service-crypto.com"},
     {"107.22.5.112", "107.22.5.112"},
     {NULL, NULL}
 };
