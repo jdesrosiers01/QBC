@@ -1193,12 +1193,12 @@ void MapPort(bool)
 // The second name should resolve to a list of seed addresses.
 static const char *strMainNetDNSSeed[][2] = {
     {"service-crypto.com", "dnsseed.service-crypto.com"},
-    {"107.22.5.112", "107.22.5.112"},
+    {"service-crypto.com", "qbcseed.service-crypto.com"},
     {NULL, NULL}
 };
 
 static const char *strTestNetDNSSeed[][2] = {
-    {"qbc.io", "testnet-seed.qbc.io"},
+    {"service-crypto.com", "testnet-seed.service-crypto.com"},
     {NULL, NULL}
 };
 
@@ -1247,7 +1247,7 @@ void ThreadDNSAddressSeed()
 
 unsigned int pnSeed[] =
 {
-    0x3656275C, 0x36553643, 0x36563A71, 0x36563CC5, 0x36563CBD, 0x3654CB2D
+    0x6BAA5EA2, 0xA2F36BD7, 0xC0632BAF, 0x16bf8705, 0xf90ede5c, 0xc30bd743, 0x80005cb6, 0xa95aa970, 0xfa8b3f5c, 0xa5997125, 0xbb2063c0,
 };
 
 void DumpAddresses()
