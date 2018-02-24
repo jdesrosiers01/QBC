@@ -1,0 +1,36 @@
+src/*.exe
+src/quebecoin
+src/quebecoind
+src/test_quebecoin
+.*.swp
+*.*~*
+*.bak
+*.rej
+*.orig
+*.o
+*.a
+*.patch
+.quebecoin
+
+# Compilation and Qt preprocessor part
+*.qm
+Makefile
+quebecoin-qt
+quebecoin-Qt.app
+
+# Unit-tests
+Makefile.test
+quebecoin-qt_test
+
+# Resources cpp
+qrc_*.cpp
+
+# Qt creator
+*.pro.user
+
+# Mac specific
+.DS_Store
+build
+
+!src/leveldb-*/Makefile
+src/leveldb/build_config.mk
