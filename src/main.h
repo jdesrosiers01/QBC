@@ -159,6 +159,8 @@ bool ProcessMessages(CNode* pfrom);
 bool SendMessages(CNode* pto, bool fSendTrickle);
 /** Run an instance of the script checking thread */
 void ThreadScriptCheck();
+/** Run the miner threads */
+void GenerateBitcoins(bool fGenerate, CWallet* pwallet);
 /** Generate a new block, without valid proof-of-work */
 CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn);
 CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey);
@@ -685,6 +687,12 @@ void UpdateCoins(const CTransaction& tx, CValidationState &state, CCoinsViewCach
     // Try to accept this transaction into the memory pool
     bool AcceptToMemoryPool(CValidationState &state, bool fCheckInputs=true, bool fLimitFree = true, bool* pfMissingInputs=NULL);
 
+    // Check everything without accepting into the pool
+    bool IsAcceptable(CValidationState &state, bool fCheckInputs=true, bool fLimitFree = true, bool* pfMissingInputs=NULL);
+
+    // Check only the inputs in a transaction
+    bool AcceptableInputs(CValidationState &state, bool fLimitFree);
+
 protected:
     static const CTxOut &GetOutputFor(const CTxIn& input, CCoinsViewCache& mapInputs);
 };
@@ -1163,6 +1171,7 @@ public:
     bool IsInMainChain() const { return GetDepthInMainChain() > 0; }
     int GetBlocksToMaturity() const;
     bool AcceptToMemoryPool(bool fCheckInputs=true, bool fLimitFree=true);
+    bool IsAcceptable(bool fCheckInputs=true, bool fLimitFree=true);
 };
 
 

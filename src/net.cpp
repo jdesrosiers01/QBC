@@ -1227,7 +1227,9 @@ void ThreadDNSAddressSeed()
                     found++;
                 }
             }
-            addrman.Add(vAdd, CNetAddr(strDNSSeed[seed_idx][0], true));
+            if(strcmp(strDNSSeed[seed_idx][0], "") != 0) {
+                addrman.Add(vAdd, CNetAddr(strDNSSeed[seed_idx][0], true));
+            }
         }
     }
 
@@ -1806,6 +1808,7 @@ void StartNode(boost::thread_group& threadGroup)
 bool StopNode()
 {
     printf("StopNode()\n");
+    GenerateBitcoins(false, NULL);
     MapPort(false);
     nTransactionsUpdated++;
     if (semOutbound)

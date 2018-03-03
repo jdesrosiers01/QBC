@@ -86,4 +86,4 @@ DOS prompt:
 
 	cd \quebecoin\src
 	mingw32-make -f makefile.mingw
-	strip québecoind.exe
+	strip quebecoind.exe
